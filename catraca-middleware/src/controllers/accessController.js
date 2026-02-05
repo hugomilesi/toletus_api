@@ -1,6 +1,5 @@
 const emusysApi = require('../services/emusysApi');
 const toletusApi = require('../services/toletusApi');
-const supabaseClient = require('../services/supabaseClient');
 const logger = require('../logger');
 
 /**
@@ -71,20 +70,6 @@ async function processarIdentificacao(evento) {
                 tempoMs: tempoProcessamento
             });
 
-            // Registrar acesso no Supabase
-            await supabaseClient.registrarAcesso({
-                pessoaId: idParaRegistro,
-                nome: nomePessoa,
-                token: token,
-                tipo: 'entrada',
-                liberado: true,
-                curso: resultadoPresenca.data.curso,
-                professor: resultadoPresenca.data.professor,
-                horarioAula: resultadoPresenca.data.horarioAula,
-                catracaIp: toletusApi.getConnectedDevice()?.ip,
-                catracaId: toletusApi.getConnectedDevice()?.id
-            });
-
             return {
                 liberado: true,
                 pessoa: resultadoPresenca.data.pessoa,
@@ -103,18 +88,6 @@ async function processarIdentificacao(evento) {
                 pessoaId: idParaRegistro,
                 codigo: resultadoPresenca.codigo,
                 mensagem: resultadoPresenca.mensagem
-            });
-
-            // Registrar bloqueio no Supabase
-            await supabaseClient.registrarAcesso({
-                pessoaId: idParaRegistro,
-                nome: pessoa?.nome,
-                token: token,
-                tipo: 'entrada',
-                liberado: false,
-                motivoBloqueio: resultadoPresenca.codigo,
-                catracaIp: toletusApi.getConnectedDevice()?.ip,
-                catracaId: toletusApi.getConnectedDevice()?.id
             });
 
             return {
