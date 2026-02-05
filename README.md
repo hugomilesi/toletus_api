@@ -64,8 +64,6 @@ CATRACA_IP=192.168.1.100
 CATRACA_TYPE=3
 EMUSYS_API_URL=https://api.emusys.com.br/v1
 EMUSYS_API_KEY=sua_api_key_aqui
-SUPABASE_URL=https://rwmvujhybdpbygkbwiki.supabase.co
-SUPABASE_ANON_KEY=sua_key_aqui
 ```
 
 ### Tipos de Catraca

@@ -5,7 +5,6 @@ const logger = require('./logger');
 const webhookRouter = require('./routes/webhook');
 const configRouter = require('./routes/config');
 const toletusApi = require('./services/toletusApi');
-const supabaseClient = require('./services/supabaseClient');
 
 const app = express();
 
@@ -80,9 +79,6 @@ app.get('/status', async (req, res) => {
             emusys: {
                 apiUrl: config.emusys.apiUrl,
                 configured: !!config.emusys.apiKey && config.emusys.apiKey !== 'sua_api_key_aqui'
-            },
-            supabase: {
-                configured: supabaseClient.isConfigurado()
             }
         });
     } catch (error) {
@@ -184,9 +180,6 @@ app.use((err, req, res, next) => {
 // Inicialização
 async function inicializar() {
     try {
-        // Inicializar Supabase
-        supabaseClient.inicializar();
-
         // Descobrir dispositivos
         logger.info('Descobrindo dispositivos...');
         const devices = await toletusApi.discoverDevices();
