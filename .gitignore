@@ -1,0 +1,29 @@
+# Dependencias
+node_modules/
+
+# Ambiente
+.env
+*.env.local
+.env.*.local
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Toletus HUB (baixar separado do GitHub da Toletus)
+toletus-hub/
+.claude/
